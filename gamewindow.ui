@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GameWindow</class>
+ <widget class="QMainWindow" name="GameWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GameWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>186</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	font: 75 10pt &quot;Arial&quot;;
+	color: rgb(225, 225, 225);
+	 background-color: qlineargradient(spread:pad, x1:0.517045, y1:1, x2:0.505, y2:0, stop:0.261364 rgba(0, 120, 14, 255), stop:1 rgba(75, 203, 0, 255));
+	 border-color: rgb(255, 255, 255);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 20px;
+     border-color: rgb(155, 155, 155);
+     font: bold 14px;
+     min-width: 10em;
+     padding: 6px;
+ }
+
+ QPushButton:hover {
+	color: rgb(255, 255, 255);
+	border-color: grey;
+ }
+
+ QPushButton:pressed {
+	background-color: qlineargradient(spread:pad, x1:0.517045, y1:1, x2:0.505, y2:0, stop:0.261364 rgba(0, 93, 11, 255), stop:1 rgba(64, 174, 0, 255));
+     border-style: inset;
+ }</string>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
