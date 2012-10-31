@@ -1,0 +1,45 @@
+QMainWindow {
+	background-color: qradialgradient(spread:pad, cx:0.415, cy:0.624682, radius:0.875, fx:0.352, fy:0.7, stop:0 rgba(34, 36, 59, 255), stop:1 rgba(0, 0, 0, 255));
+}
+
+
+QPushButton {
+	color: rgb(225, 225, 225);
+	font: bold 14px "Arial";
+	 background-color: qlineargradient(spread:pad, x1:0.517045, y1:1, x2:0.505, y2:0, stop:0.261364 rgba(0, 120, 14, 255), stop:1 rgba(75, 203, 0, 255));
+	 border-color: rgb(255, 255, 255);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     border-color: rgb(155, 155, 155);
+     min-width: 3em;
+     padding: 3px;
+ }
+ QPushButton:hover {
+	color: rgb(255, 255, 255);
+	border-color: grey;
+ }
+ QPushButton:pressed {
+	background-color: qlineargradient(spread:pad, x1:0.517045, y1:1, x2:0.505, y2:0, stop:0.261364 rgba(0, 93, 11, 255), stop:1 rgba(64, 174, 0, 255));
+     border-style: inset;
+ }
+
+
+QLineEdit {
+	 font: bold 16px "Arial";
+	color: rgb(255, 255, 255);
+	 background-color: qlineargradient(spread:pad, x1:0.517045, y1:1, x2:0.505, y2:0, stop:0.261364 rgba(0, 120, 14, 255), stop:1 rgba(75, 203, 0, 255));
+	 border-color: rgb(255, 255, 255);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 17px;
+     border-color: rgb(155, 155, 155);
+     padding: 6px;
+}
+
+
+QLabel {
+	color: rgb(225, 225, 225);
+     font: bold 16px "Arial";
+     padding: 4px;
+}
