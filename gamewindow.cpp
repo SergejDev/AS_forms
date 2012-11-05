@@ -53,7 +53,7 @@ void GameWindow::MakeInterface()
 
 
         QString str;
-        QString fileName="e:\\Programming\\Qt prog's\\AS_forms\\styles.txt";
+        QString fileName="e:\\Programming\\Qt prog's\\AS_forms\\Style.txt";
         QFile inputFile(fileName);
         QTextStream ts(&inputFile);
         if(!inputFile.open(QFile::ReadOnly | QFile::Text))
@@ -83,10 +83,10 @@ void GameWindow::MakeInterface()
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        pushButton = new QPushButton("MENU",centralWidget);
+        pushButton = new QPushButton("Menu",centralWidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(58, 0));
-        pushButton->setMaximumSize(QSize(16777215, 22));
+        pushButton->setMinimumSize(QSize(68, 0));
+        pushButton->setMaximumSize(QSize(16777215, 32));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Arial"));
         font1.setBold(true);
