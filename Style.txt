@@ -1,6 +1,6 @@
 QMainWindow{
 background-color: rgb(85, 170, 255);
-background-image:url(deepness_1600.jpg)
+background-image:url(:deepness_1600.jpg)
 }
 QPushButton{ 
 border: 1px solid #668;

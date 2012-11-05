@@ -17,6 +17,7 @@
 #include <QtGui/QStatusBar>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
+#include <QUrl>
 #include <QMessageBox>
 
 
@@ -51,9 +52,8 @@ void GameWindow::MakeInterface()
         font.setKerning(true);
         this->setFont(font);
 
-
         QString str;
-        QString fileName="e:\\Programming\\Qt prog's\\AS_forms\\Style.txt";
+        QString fileName=":/Style.txt";
         QFile inputFile(fileName);
         QTextStream ts(&inputFile);
         if(!inputFile.open(QFile::ReadOnly | QFile::Text))

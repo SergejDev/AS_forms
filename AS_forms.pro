@@ -19,4 +19,5 @@ HEADERS  += gamewindow.h \
 
 FORMS    += gamewindow.ui
 
-RESOURCES +=
+RESOURCES += \
+    resourses.qrc
