@@ -17,7 +17,7 @@ SOURCES += main.cpp\
 HEADERS  += gamewindow.h \
     #mybutton.h
 
-FORMS    += gamewindow.ui
+FORMS    +=
 
 RESOURCES += \
     resourses.qrc
