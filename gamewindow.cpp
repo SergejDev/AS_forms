@@ -32,13 +32,13 @@ void GameWindow::MakeInterface()
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QLabel *label;
+    QLabel *score;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pushButton;
+    QPushButton *menuPushButton;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_2;
-    QLineEdit *lineEdit;
+    QLineEdit *inputField;
     QSpacerItem *horizontalSpacer_3;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
@@ -73,29 +73,29 @@ void GameWindow::MakeInterface()
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        label = new QLabel("Score:", centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setStyleSheet(QString::fromUtf8(""));
+        score = new QLabel("Score:", centralWidget);
+        score->setObjectName(QString::fromUtf8("score"));
+        score->setStyleSheet(QString::fromUtf8(""));
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout->addWidget(score);
 
         horizontalSpacer = new QSpacerItem(598, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        pushButton = new QPushButton("Menu",centralWidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(68, 0));
-        pushButton->setMaximumSize(QSize(16777215, 32));
+        menuPushButton = new QPushButton("Menu",centralWidget);
+        menuPushButton->setObjectName(QString::fromUtf8("menuPushButton"));
+        menuPushButton->setMinimumSize(QSize(68, 0));
+        menuPushButton->setMaximumSize(QSize(16777215, 32));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Arial"));
         font1.setBold(true);
         font1.setItalic(false);
         font1.setWeight(75);
-        pushButton->setFont(font1);
-        pushButton->setStyleSheet(QString::fromUtf8(""));
+        menuPushButton->setFont(font1);
+        menuPushButton->setStyleSheet(QString::fromUtf8(""));
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(menuPushButton);
 
         verticalLayout->addLayout(horizontalLayout);
 
@@ -110,11 +110,11 @@ void GameWindow::MakeInterface()
 
         horizontalLayout_2->addItem(horizontalSpacer_2);
 
-        lineEdit = new QLineEdit(centralWidget);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setMinimumSize(QSize(450, 34));
+        inputField = new QLineEdit(centralWidget);
+        inputField->setObjectName(QString::fromUtf8("inputField"));
+        inputField->setMinimumSize(QSize(450, 34));
 
-        horizontalLayout_2->addWidget(lineEdit);
+        horizontalLayout_2->addWidget(inputField);
 
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
