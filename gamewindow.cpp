@@ -19,29 +19,24 @@
 #include <QtGui/QWidget>
 #include <QUrl>
 #include <QMessageBox>
+#include <QDebug>
 
 
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent)
 {
     MakeInterface();
+    connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
+
+}
+
+void GameWindow::EndGame()
+{
+    qDebug()<<"ssssss";
 }
 
 void GameWindow::MakeInterface()
 {
-    QWidget *centralWidget;
-    QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout;
-    QLabel *score;
-    QSpacerItem *horizontalSpacer;
-    QPushButton *menuPushButton;
-    QSpacerItem *verticalSpacer;
-    QHBoxLayout *horizontalLayout_2;
-    QSpacerItem *horizontalSpacer_2;
-    QLineEdit *inputField;
-    QSpacerItem *horizontalSpacer_3;
-    QMenuBar *menuBar;
-    QStatusBar *statusBar;
 
         if (this->objectName().isEmpty())
         {
