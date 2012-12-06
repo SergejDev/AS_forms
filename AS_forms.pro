@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui\
+        sql
 
 TARGET = AS_forms
 TEMPLATE = app
@@ -13,11 +14,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         gamewindow.cpp \
     #mybutton.cpp
+    usernamedialog.cpp \
+    tabledialog.cpp
 
 HEADERS  += gamewindow.h \
     #mybutton.h
+    usernamedialog.h \
+    tabledialog.h
 
-FORMS    +=
+FORMS    += \
+    usernamedialog.ui \
+    tabledialog.ui
 
 RESOURCES += \
     resourses.qrc

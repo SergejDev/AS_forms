@@ -20,6 +20,14 @@
 #include <QtGui/QStatusBar>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlDriver>
+#include <QtSql>
+#include "usernamedialog.h"
+#include "ui_usernamedialog.h"
+#include "tabledialog.h"
+#include "ui_tabledialog.h"
 
 
 namespace Ui {
@@ -35,7 +43,11 @@ public:
     ~GameWindow();
     
 private:
-    //Ui::GameWindow *ui;
+
+    UserNameDialog* userNameDialog;
+    TableDialog* tableDialog;
+
+    QSqlDatabase db;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
@@ -51,6 +63,9 @@ private:
     QStatusBar *statusBar;
 
     void MakeInterface();
+    bool SQLConnectionOpen();
+    void WriteResultToDB(QString name, QString scores);
+    void ShowStatisticTable();
 private slots:
     void EndGame();
 };
