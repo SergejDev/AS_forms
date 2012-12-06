@@ -47,7 +47,7 @@ private:
 
     UserNameDialog* userNameDialog;
     TableDialog* tableDialog;
-    QSqlTableModel* model;
+//    QSqlTableModel* model;
 
 
     QSqlDatabase db;
@@ -66,7 +66,7 @@ private:
     QStatusBar *statusBar;
 
     void MakeInterface();
-    bool SQLConnectionOpen();
+    void SQLConnectionOpen();
     void WriteResultToDB(QString name, QString scores);
     void ShowStatisticTable();
 private slots:

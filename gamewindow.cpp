@@ -31,6 +31,7 @@ GameWindow::GameWindow(QWidget *parent) :
 
     //only for demo
     score->setText("12000");
+    tableDialog=new TableDialog(this);
 }
 
 void GameWindow::EndGame()
@@ -72,16 +73,14 @@ void GameWindow::ShowStatisticTable()
 //        tableDialog->ui->tableWidget->setItem(rowCount, 1, nameItem);
 //        tableDialog->ui->tableWidget->setItem(rowCount, 2, scoreItem);
 //    }
-    tableDialog=new TableDialog(this);
-    model=new QSqlTableModel(this, db);
+
+    QSqlTableModel* model=new QSqlTableModel(this, db);
     model->setTable("Statistic");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
-    model->setHeaderData(0, Qt::Horizontal, tr("Id"));
-    model->setHeaderData(1, Qt::Horizontal, tr("Name"));
-    model->setHeaderData(2, Qt::Horizontal, tr("Score"));
 
     tableDialog->ui->tableView->setModel(model);
+    //tableDialog->ui->tableView->hideColumn(0);
     tableDialog->show();
 }
 
@@ -93,7 +92,7 @@ void GameWindow::WriteResultToDB(QString name, QString scores)
     qDebug()<<db.lastError().text();
 }
 
-bool GameWindow::SQLConnectionOpen()
+void GameWindow::SQLConnectionOpen()
 {
     db=QSqlDatabase::addDatabase("QSQLITE","statistic.s3db");
     db.setHostName("Spirit-PC");
@@ -102,7 +101,6 @@ bool GameWindow::SQLConnectionOpen()
     db.setPassword("");
     bool ok=db.open();
     qDebug()<<ok;
-    return ok;
 }
 
 void GameWindow::MakeInterface()
