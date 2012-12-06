@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'tabledialog.ui'
 **
-** Created: Thu 6. Dec 01:22:51 2012
+** Created: Thu 6. Dec 16:12:33 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -17,7 +17,7 @@
 #include <QtGui/QDialog>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
-#include <QtGui/QTableWidget>
+#include <QtGui/QTableView>
 
 QT_BEGIN_NAMESPACE
 
@@ -25,7 +25,7 @@ class Ui_TableDialog
 {
 public:
     QHBoxLayout *horizontalLayout;
-    QTableWidget *tableWidget;
+    QTableView *tableView;
 
     void setupUi(QDialog *TableDialog)
     {
@@ -34,18 +34,10 @@ public:
         TableDialog->resize(540, 314);
         horizontalLayout = new QHBoxLayout(TableDialog);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        tableWidget = new QTableWidget(TableDialog);
-        if (tableWidget->columnCount() < 3)
-            tableWidget->setColumnCount(3);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
-        tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
+        tableView = new QTableView(TableDialog);
+        tableView->setObjectName(QString::fromUtf8("tableView"));
 
-        horizontalLayout->addWidget(tableWidget);
+        horizontalLayout->addWidget(tableView);
 
 
         retranslateUi(TableDialog);
@@ -56,12 +48,6 @@ public:
     void retranslateUi(QDialog *TableDialog)
     {
         TableDialog->setWindowTitle(QApplication::translate("TableDialog", "Dialog", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("TableDialog", "Id", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("TableDialog", "Name", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("TableDialog", "Score", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -24,6 +24,7 @@
 #include <QSqlQuery>
 #include <QSqlDriver>
 #include <QtSql>
+#include <QSqlTableModel>
 #include "usernamedialog.h"
 #include "ui_usernamedialog.h"
 #include "tabledialog.h"
@@ -46,6 +47,8 @@ private:
 
     UserNameDialog* userNameDialog;
     TableDialog* tableDialog;
+    QSqlTableModel* model;
+
 
     QSqlDatabase db;
     QWidget *centralWidget;

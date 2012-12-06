@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'usernamedialog.ui'
 **
-** Created: Thu 6. Dec 00:46:03 2012
+** Created: Thu 6. Dec 16:12:33 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

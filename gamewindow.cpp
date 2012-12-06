@@ -54,24 +54,34 @@ void GameWindow::ShowStatisticTable()
     {
         SQLConnectionOpen();
     }
+//    tableDialog=new TableDialog(this);
+//    QString query="SELECT * FROM Statistic";
+//    QSqlQuery queryResult = db.exec(query);
+//    qDebug()<<db.lastError().text();
+//    while (queryResult.next())
+//    {
+//        QString id = queryResult.value(0).toString();
+//        QString name = queryResult.value(1).toString();
+//        QString score = queryResult.value(2).toString();
+//        int rowCount=tableDialog->ui->tableWidget->rowCount();
+//        tableDialog->ui->tableWidget->insertRow(rowCount);
+//        QTableWidgetItem *idItem = new QTableWidgetItem(id);
+//        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
+//        QTableWidgetItem *scoreItem = new QTableWidgetItem(score);
+//        tableDialog->ui->tableWidget->setItem(rowCount, 0, idItem);
+//        tableDialog->ui->tableWidget->setItem(rowCount, 1, nameItem);
+//        tableDialog->ui->tableWidget->setItem(rowCount, 2, scoreItem);
+//    }
     tableDialog=new TableDialog(this);
-    QString query="SELECT * FROM Statistic";
-    QSqlQuery queryResult = db.exec(query);
-    qDebug()<<db.lastError().text();
-    while (queryResult.next())
-    {
-        QString id = queryResult.value(0).toString();
-        QString name = queryResult.value(1).toString();
-        QString score = queryResult.value(2).toString();
-        int rowCount=tableDialog->ui->tableWidget->rowCount();
-        tableDialog->ui->tableWidget->insertRow(rowCount);
-        QTableWidgetItem *idItem = new QTableWidgetItem(id);
-        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
-        QTableWidgetItem *scoreItem = new QTableWidgetItem(score);
-        tableDialog->ui->tableWidget->setItem(rowCount, 0, idItem);
-        tableDialog->ui->tableWidget->setItem(rowCount, 1, nameItem);
-        tableDialog->ui->tableWidget->setItem(rowCount, 2, scoreItem);
-    }
+    model=new QSqlTableModel(this, db);
+    model->setTable("Statistic");
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->select();
+    model->setHeaderData(0, Qt::Horizontal, tr("Id"));
+    model->setHeaderData(1, Qt::Horizontal, tr("Name"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Score"));
+
+    tableDialog->ui->tableView->setModel(model);
     tableDialog->show();
 }
 
