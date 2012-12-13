@@ -1,3 +1,11 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>debug/Images/db2.jpg</file>
+        <file>debug/Images/db2.png</file>
+        <file>debug/Images/dk2.jpg</file>
+        <file>debug/Images/dk2.png</file>
+        <file>deepness_1600.jpg</file>
+        <file>deepness_1600_small.jpg</file>
+        <file>Style.txt</file>
+    </qresource>
 </RCC>

@@ -1,4 +1,6 @@
 #include "gamewindow.h"
+#include "ship.h"
+#include "ships.h"
 #include <QString>
 #include <QTextStream>
 #include <QFile>
@@ -19,34 +21,54 @@
 #include <QtGui/QWidget>
 #include <QUrl>
 #include <QMessageBox>
+#include <QPaintEvent>
 #include <QDebug>
 
 
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent)
 {
+    InitializeRandom();
     MakeInterface();
+    //connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
+    AllShips=new Ships(this->width());
     connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
-
 
     //only for demo
     score->setText("12000");
     tableDialog=new TableDialog(this);
 }
 
+
+
+void GameWindow::paintEvent(QPaintEvent *arg)
+{
+    QPainter painter(this);
+    //ships(&painter);
+    AllShips->DrawShips(&painter);
+}
+
 void GameWindow::EndGame()
 {
-    userNameDialog=new UserNameDialog(this);
-
-    if(userNameDialog->exec() == QDialog::Accepted)
+    //AllShips->Ships
+    for(int i=0;i<3;i++)
     {
-        if(userNameDialog->ui->lineEdit->text()!="")
-        {
-            WriteResultToDB(userNameDialog->ui->lineEdit->text(), score->text());
-        }
+        AllShips->AddShip(new Ship());
     }
+    this->update();
 
-    ShowStatisticTable();
+////////////////////////////////////
+//    userNameDialog=new UserNameDialog(this);
+
+//    if(userNameDialog->exec() == QDialog::Accepted)
+//    {
+//        if(userNameDialog->ui->lineEdit->text()!="")
+//        {
+//            WriteResultToDB(userNameDialog->ui->lineEdit->text(), score->text());
+//        }
+//    }
+
+//    ShowStatisticTable();
 }
 
 void GameWindow::ShowStatisticTable()
@@ -55,24 +77,6 @@ void GameWindow::ShowStatisticTable()
     {
         SQLConnectionOpen();
     }
-//    tableDialog=new TableDialog(this);
-//    QString query="SELECT * FROM Statistic";
-//    QSqlQuery queryResult = db.exec(query);
-//    qDebug()<<db.lastError().text();
-//    while (queryResult.next())
-//    {
-//        QString id = queryResult.value(0).toString();
-//        QString name = queryResult.value(1).toString();
-//        QString score = queryResult.value(2).toString();
-//        int rowCount=tableDialog->ui->tableWidget->rowCount();
-//        tableDialog->ui->tableWidget->insertRow(rowCount);
-//        QTableWidgetItem *idItem = new QTableWidgetItem(id);
-//        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
-//        QTableWidgetItem *scoreItem = new QTableWidgetItem(score);
-//        tableDialog->ui->tableWidget->setItem(rowCount, 0, idItem);
-//        tableDialog->ui->tableWidget->setItem(rowCount, 1, nameItem);
-//        tableDialog->ui->tableWidget->setItem(rowCount, 2, scoreItem);
-//    }
 
     QSqlTableModel* model=new QSqlTableModel(this, db);
     model->setTable("Statistic");
@@ -82,6 +86,12 @@ void GameWindow::ShowStatisticTable()
     tableDialog->ui->tableView->setModel(model);
     //tableDialog->ui->tableView->hideColumn(0);
     tableDialog->show();
+}
+
+void GameWindow::InitializeRandom()
+{
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
 }
 
 void GameWindow::WriteResultToDB(QString name, QString scores)
@@ -115,7 +125,7 @@ void GameWindow::MakeInterface()
     this->setFont(font);
 
     QString str;
-    QString fileName="Style.txt";
+    QString fileName=":/Style.txt";
     QFile inputFile(fileName);
     QTextStream ts(&inputFile);
     if(!inputFile.open(QFile::ReadOnly | QFile::Text))
@@ -162,6 +172,18 @@ void GameWindow::MakeInterface()
     verticalLayout->addLayout(horizontalLayout);
 
     verticalSpacer = new QSpacerItem(20, 560, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+
+    //////////////add ship////////////////
+//    shipImageLabel = new QLabel(centralWidget);
+//    QPixmap *shipImage = new QPixmap("");
+//    shipImageLabel->setPixmap(*shipImage);
+//    verticalLayout->addWidget(shipImageLabel);
+    //////////////
+//    QImage *shipImage1 = new QImage(":/debug/Images/dk2.png");
+//    painter = new QPainter(centralWidget);
+//    painter->drawImage(40,40,*shipImage1);
+
 
     verticalLayout->addItem(verticalSpacer);
 

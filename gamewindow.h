@@ -25,10 +25,12 @@
 #include <QSqlDriver>
 #include <QtSql>
 #include <QSqlTableModel>
+#include <QPainter>
 #include "usernamedialog.h"
 #include "ui_usernamedialog.h"
 #include "tabledialog.h"
 #include "ui_tabledialog.h"
+#include "ships.h"
 
 
 namespace Ui {
@@ -43,6 +45,7 @@ public:
     explicit GameWindow(QWidget *parent = 0);
     ~GameWindow();
     
+
 private:
 
     UserNameDialog* userNameDialog;
@@ -64,11 +67,16 @@ private:
     QSpacerItem *horizontalSpacer_3;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
+    /////////
+    Ships *AllShips;
+
+    void paintEvent(QPaintEvent *arg);
 
     void MakeInterface();
     void SQLConnectionOpen();
     void WriteResultToDB(QString name, QString scores);
     void ShowStatisticTable();
+    void InitializeRandom();
 private slots:
     void EndGame();
 };
