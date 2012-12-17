@@ -1,28 +1,5 @@
 #include "gamewindow.h"
-#include "ship.h"
-#include "ships.h"
-#include <QString>
-#include <QTextStream>
-#include <QFile>
-#include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QMainWindow>
-#include <QtGui/QMenuBar>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QStatusBar>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QWidget>
-#include <QUrl>
-#include <QMessageBox>
-#include <QPaintEvent>
-#include <QDebug>
+#include "bullet.h"
 
 
 GameWindow::GameWindow(QWidget *parent) :
@@ -30,32 +7,34 @@ GameWindow::GameWindow(QWidget *parent) :
 {
     InitializeRandom();
     MakeInterface();
-    //connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
-    AllShips=new Ships(this->width());
+    gameController=new GameController(this->width(),this);
+
+    connect(gameController,SIGNAL(GameAreaUpdate()),this, SLOT(update()));
     connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
+    connect(this->inputField,SIGNAL(textChanged(QString)),this, SLOT(InputFieldTextChanged(QString)));
 
     //only for demo
     score->setText("12000");
     tableDialog=new TableDialog(this);
+
+    for(int i=0;i<1;i++)
+    {
+        gameController->AddShip();
+    }
 }
 
-
-
-void GameWindow::paintEvent(QPaintEvent *arg)
+void GameWindow::paintEvent(QPaintEvent */*arg*/)
 {
     QPainter painter(this);
-    //ships(&painter);
-    AllShips->DrawShips(&painter);
+    gameController->Draw(&painter);
 }
 
 void GameWindow::EndGame()
 {
-    //AllShips->Ships
-    for(int i=0;i<3;i++)
+    for(int i=0;i<1;i++)
     {
-        AllShips->AddShip(new Ship());
+        gameController->AddShip();
     }
-    this->update();
 
 ////////////////////////////////////
 //    userNameDialog=new UserNameDialog(this);
@@ -68,7 +47,12 @@ void GameWindow::EndGame()
 //        }
 //    }
 
-//    ShowStatisticTable();
+    //        ShowStatisticTable();
+}
+
+void GameWindow::InputFieldTextChanged(QString word)
+{
+    gameController->Shoot(word);
 }
 
 void GameWindow::ShowStatisticTable()
@@ -215,6 +199,7 @@ void GameWindow::MakeInterface()
     statusBar = new QStatusBar(this);
     statusBar->setObjectName(QString::fromUtf8("statusBar"));
     this->setStatusBar(statusBar);
+    inputField->setFocus();
 }
 
 GameWindow::~GameWindow()

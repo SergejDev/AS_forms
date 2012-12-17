@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui\
-        sql
+QT       += core gui sql
 
 
 TARGET = AS_forms
@@ -14,18 +13,22 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         gamewindow.cpp \
-    #mybutton.cpp
     usernamedialog.cpp \
     tabledialog.cpp \
     ship.cpp \
-    ships.cpp
+    ships.cpp \
+    bullet.cpp \
+    bullets.cpp \
+    gamecontroller.cpp
 
 HEADERS  += gamewindow.h \
-    #mybutton.h
     usernamedialog.h \
     tabledialog.h \
     ship.h \
-    ships.h
+    ships.h \
+    bullet.h \
+    bullets.h \
+    gamecontroller.h
 
 FORMS    += \
     usernamedialog.ui \

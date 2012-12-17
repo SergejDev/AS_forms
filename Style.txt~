@@ -10,6 +10,7 @@ QPushButton{
 border: 1px solid #668;
 padding:8px;
 border-radius:solid 10px;
+
 font: 75 10pt "Segoe Print";
 color:#fff;
 width: 50px;

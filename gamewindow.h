@@ -30,7 +30,7 @@
 #include "ui_usernamedialog.h"
 #include "tabledialog.h"
 #include "ui_tabledialog.h"
-#include "ships.h"
+#include "gamecontroller.h"
 
 
 namespace Ui {
@@ -50,7 +50,6 @@ private:
 
     UserNameDialog* userNameDialog;
     TableDialog* tableDialog;
-//    QSqlTableModel* model;
 
 
     QSqlDatabase db;
@@ -68,7 +67,7 @@ private:
     QMenuBar *menuBar;
     QStatusBar *statusBar;
     /////////
-    Ships *AllShips;
+    GameController *gameController;
 
     void paintEvent(QPaintEvent *arg);
 
@@ -79,6 +78,7 @@ private:
     void InitializeRandom();
 private slots:
     void EndGame();
+    void InputFieldTextChanged(QString word);
 };
 
 #endif // GAMEWINDOW_H
