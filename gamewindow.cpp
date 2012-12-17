@@ -7,20 +7,15 @@ GameWindow::GameWindow(QWidget *parent) :
 {
     InitializeRandom();
     MakeInterface();
-    gameController=new GameController(this->width(),this);
+    gameController=new GameController(this->width(),0,this);
 
     connect(gameController,SIGNAL(GameAreaUpdate()),this, SLOT(update()));
-    connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
+    //connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
     connect(this->inputField,SIGNAL(textChanged(QString)),this, SLOT(InputFieldTextChanged(QString)));
+    connect(gameController,SIGNAL(ShipDestroyed(int)),this,SLOT(ShipDestroyedSlot(int)));
+    connect(gameController,SIGNAL(ShipOwercomeBorder(int)),this,SLOT(EndGame()));
 
-    //only for demo
-    score->setText("12000");
-    tableDialog=new TableDialog(this);
 
-    for(int i=0;i<1;i++)
-    {
-        gameController->AddShip();
-    }
 }
 
 void GameWindow::paintEvent(QPaintEvent */*arg*/)
@@ -31,28 +26,29 @@ void GameWindow::paintEvent(QPaintEvent */*arg*/)
 
 void GameWindow::EndGame()
 {
-    for(int i=0;i<1;i++)
+//////////////////////////////////
+    userNameDialog=new UserNameDialog(this);
+    userNameDialog->setModal(true);
+    if(userNameDialog->exec() == QDialog::Accepted)
     {
-        gameController->AddShip();
+        if(userNameDialog->ui->lineEdit->text()!="")
+        {
+            WriteResultToDB(userNameDialog->ui->lineEdit->text(), score->text());
+        }
     }
-
-////////////////////////////////////
-//    userNameDialog=new UserNameDialog(this);
-
-//    if(userNameDialog->exec() == QDialog::Accepted)
-//    {
-//        if(userNameDialog->ui->lineEdit->text()!="")
-//        {
-//            WriteResultToDB(userNameDialog->ui->lineEdit->text(), score->text());
-//        }
-//    }
-
-    //        ShowStatisticTable();
+    ShowStatisticTable();
 }
 
 void GameWindow::InputFieldTextChanged(QString word)
 {
     gameController->Shoot(word);
+}
+
+void GameWindow::ShipDestroyedSlot(int shipIndex)
+{
+    //currentScore+=scorePointsForDestroyingShip;
+    score->setText("Score: "+QString::number(gameController->GetScore()));
+    inputField->setText("");
 }
 
 void GameWindow::ShowStatisticTable()
@@ -69,6 +65,7 @@ void GameWindow::ShowStatisticTable()
 
     tableDialog->ui->tableView->setModel(model);
     //tableDialog->ui->tableView->hideColumn(0);
+    tableDialog->setModal(true);
     tableDialog->show();
 }
 
@@ -129,7 +126,7 @@ void GameWindow::MakeInterface()
     horizontalLayout = new QHBoxLayout();
     horizontalLayout->setSpacing(6);
     horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-    score = new QLabel("Score:", centralWidget);
+    score = new QLabel("Score: 0", centralWidget);
     score->setObjectName(QString::fromUtf8("score"));
     score->setStyleSheet(QString::fromUtf8(""));
 
@@ -157,18 +154,6 @@ void GameWindow::MakeInterface()
 
     verticalSpacer = new QSpacerItem(20, 560, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-
-    //////////////add ship////////////////
-//    shipImageLabel = new QLabel(centralWidget);
-//    QPixmap *shipImage = new QPixmap("");
-//    shipImageLabel->setPixmap(*shipImage);
-//    verticalLayout->addWidget(shipImageLabel);
-    //////////////
-//    QImage *shipImage1 = new QImage(":/debug/Images/dk2.png");
-//    painter = new QPainter(centralWidget);
-//    painter->drawImage(40,40,*shipImage1);
-
-
     verticalLayout->addItem(verticalSpacer);
 
     horizontalLayout_2 = new QHBoxLayout();
@@ -192,13 +177,9 @@ void GameWindow::MakeInterface()
     verticalLayout->addLayout(horizontalLayout_2);
 
     this->setCentralWidget(centralWidget);
-    menuBar = new QMenuBar(this);
-    menuBar->setObjectName(QString::fromUtf8("menuBar"));
-    menuBar->setGeometry(QRect(0, 0, 1000, 21));
-    this->setMenuBar(menuBar);
-    statusBar = new QStatusBar(this);
-    statusBar->setObjectName(QString::fromUtf8("statusBar"));
-    this->setStatusBar(statusBar);
+
+    tableDialog=new TableDialog(this);
+
     inputField->setFocus();
 }
 

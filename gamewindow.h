@@ -64,8 +64,6 @@ private:
     QSpacerItem *horizontalSpacer_2;
     QLineEdit *inputField;
     QSpacerItem *horizontalSpacer_3;
-    QMenuBar *menuBar;
-    QStatusBar *statusBar;
     /////////
     GameController *gameController;
 
@@ -79,6 +77,8 @@ private:
 private slots:
     void EndGame();
     void InputFieldTextChanged(QString word);
+    void ShipDestroyedSlot(int shipIndex);
+    //void ShipOwercomeBorderSlot(int shipIndex);
 };
 
 #endif // GAMEWINDOW_H

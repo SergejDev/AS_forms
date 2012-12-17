@@ -1,14 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>debug/Images/db2.jpg</file>
-        <file>debug/Images/db2.png</file>
-        <file>debug/Images/dk2.jpg</file>
-        <file>debug/Images/dk2.png</file>
         <file>deepness_1600.jpg</file>
         <file>deepness_1600_small.jpg</file>
         <file>debug/Images/db2_darker.png</file>
         <file>debug/Images/dk2_darker.png</file>
         <file>Style.txt</file>
         <file>debug/Images/plasma_bullet_small.png</file>
+        <file>debug/Images/gun.png</file>
     </qresource>
 </RCC>

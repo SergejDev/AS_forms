@@ -27,15 +27,17 @@ public:
     void AddShip(Ship* newShip);
     QPoint ShipPositionFromWord(QString typingWord);
     int ShipIndexFromWord(QString typingWord);
+    void ShipHited(int bulletIndex, int shipIndex);
 
 signals:
     void ShipsPositionUpdate();
     void ShipOwercomeBorder(int shipIndex);
+    void ShipDestroyed(int shipIndex);
 
 private slots:
     void MooveShipsAnimationsTimerSlot();
     void OvercomeBorderSlot(int shipIndex);
-
+    //void ShipDestroyedSlot(int shipIndex);
 };
 
 #endif // SHIPS_H

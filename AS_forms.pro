@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     ships.cpp \
     bullet.cpp \
     bullets.cpp \
-    gamecontroller.cpp
+    gamecontroller.cpp \
+    gun.cpp
 
 HEADERS  += gamewindow.h \
     usernamedialog.h \
@@ -28,7 +29,8 @@ HEADERS  += gamewindow.h \
     ships.h \
     bullet.h \
     bullets.h \
-    gamecontroller.h
+    gamecontroller.h \
+    gun.h
 
 FORMS    += \
     usernamedialog.ui \

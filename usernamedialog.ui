@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Enter your name</string>
+   <string>Game over</string>
   </property>
   <property name="styleSheet">
    <string notr="true">Style.txt</string>

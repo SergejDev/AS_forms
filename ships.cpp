@@ -45,7 +45,7 @@ QPoint Ships::ShipPositionFromWord(QString typingWord)
     }
     for(int i = 0; i < allShips.size(); i++)
     {
-        if(allShips[i]->GetWord().contains(typingWord,Qt::CaseInsensitive))
+        if(allShips[i]->GetWord().startsWith(typingWord,Qt::CaseInsensitive))
         {
             return allShips[i]->GetPosition();
         }
@@ -61,12 +61,24 @@ int Ships::ShipIndexFromWord(QString typingWord)
     }
     for(int i = 0; i < allShips.size(); i++)
     {
-        if(allShips[i]->GetWord().contains(typingWord,Qt::CaseInsensitive))
+        if(allShips[i]->GetWord().startsWith(typingWord,Qt::CaseInsensitive))
         {
             return i;
         }
     }
     return -1;//error position
+}
+
+void Ships::ShipHited(int bulletIndex, int shipIndex)
+{
+    int damage=20;
+    if(allShips.count()-1<shipIndex) return;
+    allShips[shipIndex]->SetCurrentHP(allShips[shipIndex]->GetCurrentHP()-damage);
+    if(allShips[shipIndex]->GetCurrentHP()<=0)
+    {
+        allShips.removeAt(shipIndex);
+        emit ShipDestroyed(shipIndex);
+    }
 }
 
 void Ships::MooveShipsAnimationsTimerSlot()
@@ -78,6 +90,7 @@ void Ships::OvercomeBorderSlot(int shipIndex)
 {
     allShips.removeAt(shipIndex);
 }
+
 
 int Ships::RandInt(int low, int high)
 {
