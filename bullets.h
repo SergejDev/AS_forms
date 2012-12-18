@@ -23,6 +23,8 @@ public:
     Bullets(int windowWidth,QObject *parent=0);
     void DrawBullets(QPainter* painter);
     void AddBullet(Bullet* newBullet);
+    void PauseBullets();
+    void ResumeBullets();
 
 signals:
     void BulletsPositionUpdate();

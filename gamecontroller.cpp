@@ -71,6 +71,20 @@ int GameController::GetScore()
     return currentScore;
 }
 
+void GameController::PauseGame()
+{
+    allShips->PauseShips();
+    allBullets->PauseBullets();
+    addShipTimer->stop();
+}
+
+void GameController::ResumeGame()
+{
+    allShips->ResumeShips();
+    allBullets->ResumeBullets();
+    addShipTimer->start();
+}
+
 void GameController::NextLevel()
 {
     currentLevel+=1;

@@ -2,7 +2,7 @@
 
 WindowsController::WindowsController(QObject *parent):QObject(parent)
 {
-
+    onApplicationStart=true;
     //gameWindow=new GameWindow();
 
 }
@@ -13,27 +13,33 @@ WindowsController::~WindowsController()
     //delete gameWindow;
 }
 
-void WindowsController::ShowMenuWindow()
+void WindowsController::ShowMenuWindow(bool isGameWindowActive)
 {
     menuWindow=new MenuWindow();
     connect(menuWindow,SIGNAL(StartButtonPressed()),this,SLOT(StartGameSlot()));
     connect(menuWindow,SIGNAL(SettingsButtonPressed()),this,SLOT(SettingsSlot()));
     connect(menuWindow,SIGNAL(QuitButtonPressed()),this,SLOT(QuitGameSlot()));
     menuWindow->show();
-//    qDebug()<<gameWindow;
-//    if(gameWindow)
-//    {
-//        qDebug()<<"sss";
-//        gameWindow->PauseGame();
-//    }
+    if(isGameWindowActive)
+    {
+        gameWindow->PauseGame();
+    }
 }
 
 void WindowsController::StartGameSlot()
 {
     menuWindow->hide();
-    gameWindow=new GameWindow();
-    connect(gameWindow,SIGNAL(MenuButtonPressed()),this,SLOT(ShowMenuWindow()));
-    gameWindow->show();
+    if(onApplicationStart)
+    {
+        gameWindow=new GameWindow();
+        connect(gameWindow,SIGNAL(MenuButtonPressed(bool)),this,SLOT(ShowMenuWindow(bool)));
+        gameWindow->show();
+        onApplicationStart=false;
+    }
+    else
+    {
+        gameWindow->ResumeGame();
+    }
 }
 
 void WindowsController::SettingsSlot()

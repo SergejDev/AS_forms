@@ -10,18 +10,23 @@ GameWindow::GameWindow(QWidget *parent) :
     gameController=new GameController(this->width(),0,this);
 
     connect(gameController,SIGNAL(GameAreaUpdate()),this, SLOT(update()));
-    connect(this->menuPushButton,SIGNAL(clicked()),this, SIGNAL(MenuButtonPressed()));
+    connect(this->menuPushButton,SIGNAL(clicked(bool)),this, SIGNAL(MenuButtonPressed(bool)));
     connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(PauseGame()));
     connect(this->inputField,SIGNAL(textChanged(QString)),this, SLOT(InputFieldTextChanged(QString)));
     connect(gameController,SIGNAL(ShipDestroyed(int)),this,SLOT(ShipDestroyedSlot(int)));
     connect(gameController,SIGNAL(ShipOwercomeBorder(int)),this,SLOT(EndGame()));
 
-
 }
 
-void GameWindow::PauseGame()//!!!!!!!!!!!!!!!!!!!
+void GameWindow::PauseGame()
 {
-    setDisabled(true);
+    gameController->PauseGame();
+}
+
+void GameWindow::ResumeGame()
+{
+    gameController->ResumeGame();
+    inputField->setFocus();
 }
 
 void GameWindow::paintEvent(QPaintEvent */*arg*/)
@@ -112,19 +117,6 @@ void GameWindow::MakeInterface()
     font.setKerning(true);
     this->setFont(font);
 
-//    QString str;
-//    QString fileName=":/Style.txt";
-//    QFile inputFile(fileName);
-//    QTextStream ts(&inputFile);
-//    if(!inputFile.open(QFile::ReadOnly | QFile::Text))
-//    {
-//        return;
-//    }
-//    str=ts.readAll();
-//    inputFile.close();
-
-//    this->setStyleSheet(str);
-
     SetWindowStyle();
 
     centralWidget = new QWidget(this);
@@ -189,6 +181,8 @@ void GameWindow::MakeInterface()
     this->setCentralWidget(centralWidget);
 
     tableDialog=new TableDialog(this);
+
+    setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
 
     inputField->setFocus();
 }

@@ -76,10 +76,12 @@ private:
     void WriteResultToDB(QString name, int scores);
     void ShowStatisticTable();
     void InitializeRandom();
+
 signals:
-    void MenuButtonPressed();
+    void MenuButtonPressed(bool isGameWindowActive=true);
 public slots:
     void PauseGame();
+    void ResumeGame();
 private slots:
     void EndGame();
     void InputFieldTextChanged(QString word);

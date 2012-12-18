@@ -38,6 +38,8 @@ public:
     void Shoot(QString word);
     void SetLevel(int level);
     int GetScore();
+    void PauseGame();
+    void ResumeGame();
 
 signals:
     void GameAreaUpdate();

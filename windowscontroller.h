@@ -10,13 +10,14 @@ class WindowsController: public QObject
 private:
     MenuWindow *menuWindow;
     GameWindow *gameWindow;
+    bool onApplicationStart;
 
 public:
     WindowsController(QObject *parent=0);
     ~WindowsController();
 
 public slots:
-    void ShowMenuWindow();
+    void ShowMenuWindow(bool isGameWindowActive=false);
 private slots:
     void StartGameSlot();
     void SettingsSlot();

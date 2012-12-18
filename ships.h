@@ -28,6 +28,8 @@ public:
     QPoint ShipPositionFromWord(QString typingWord);
     int ShipIndexFromWord(QString typingWord);
     void ShipHited(int bulletIndex, int shipIndex);
+    void PauseShips();
+    void ResumeShips();
 
 signals:
     void ShipsPositionUpdate();

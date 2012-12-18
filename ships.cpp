@@ -81,6 +81,16 @@ void Ships::ShipHited(int bulletIndex, int shipIndex)
     }
 }
 
+void Ships::PauseShips()
+{
+    mooveShipsAnimationsTimer->stop();
+}
+
+void Ships::ResumeShips()
+{
+    mooveShipsAnimationsTimer->start();
+}
+
 void Ships::MooveShipsAnimationsTimerSlot()
 {
     MooveShips();

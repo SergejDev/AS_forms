@@ -24,9 +24,19 @@ void Bullets::DrawBullets(QPainter* painter)
 
 void Bullets::AddBullet(Bullet* newBullet)
 {
-    QPoint shootPosition(windowWidth/2,550);
+    QPoint shootPosition(windowWidth/2,590);
     newBullet->SetPosition(shootPosition);
     allBullets.append(newBullet);
+}
+
+void Bullets::PauseBullets()
+{
+    mooveBulletsAnimationsTimer->stop();
+}
+
+void Bullets::ResumeBullets()
+{
+    mooveBulletsAnimationsTimer->start();
 }
 
 void Bullets::MooveBulletsAnimationsTimerSlot()
