@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui\
+ sql
 
 
 TARGET = AS_forms
@@ -20,7 +21,9 @@ SOURCES += main.cpp\
     bullet.cpp \
     bullets.cpp \
     gamecontroller.cpp \
-    gun.cpp
+    gun.cpp \
+    windowscontroller.cpp \
+    menuwindow.cpp
 
 HEADERS  += gamewindow.h \
     usernamedialog.h \
@@ -30,11 +33,14 @@ HEADERS  += gamewindow.h \
     bullet.h \
     bullets.h \
     gamecontroller.h \
-    gun.h
+    gun.h \
+    windowscontroller.h \
+    menuwindow.h
 
 FORMS    += \
     usernamedialog.ui \
-    tabledialog.ui
+    tabledialog.ui \
+    menuwindow.ui
 
 RESOURCES += \
     resourses.qrc

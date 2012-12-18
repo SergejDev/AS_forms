@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'usernamedialog.ui'
 **
-** Created: Fri 14. Dec 00:30:08 2012
+** Created: Tue 18. Dec 12:51:43 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -98,7 +98,7 @@ public:
 
     void retranslateUi(QDialog *UserNameDialog)
     {
-        UserNameDialog->setWindowTitle(QApplication::translate("UserNameDialog", "Enter your name", 0, QApplication::UnicodeUTF8));
+        UserNameDialog->setWindowTitle(QApplication::translate("UserNameDialog", "Game over", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("UserNameDialog", "Enter your name", 0, QApplication::UnicodeUTF8));
         okPushButton->setText(QApplication::translate("UserNameDialog", "    Ok    ", 0, QApplication::UnicodeUTF8));
         cancelPushButton->setText(QApplication::translate("UserNameDialog", "   Cancel   ", 0, QApplication::UnicodeUTF8));

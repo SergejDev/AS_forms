@@ -10,12 +10,18 @@ GameWindow::GameWindow(QWidget *parent) :
     gameController=new GameController(this->width(),0,this);
 
     connect(gameController,SIGNAL(GameAreaUpdate()),this, SLOT(update()));
-    //connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(EndGame()));
+    connect(this->menuPushButton,SIGNAL(clicked()),this, SIGNAL(MenuButtonPressed()));
+    connect(this->menuPushButton,SIGNAL(clicked()),this, SLOT(PauseGame()));
     connect(this->inputField,SIGNAL(textChanged(QString)),this, SLOT(InputFieldTextChanged(QString)));
     connect(gameController,SIGNAL(ShipDestroyed(int)),this,SLOT(ShipDestroyedSlot(int)));
     connect(gameController,SIGNAL(ShipOwercomeBorder(int)),this,SLOT(EndGame()));
 
 
+}
+
+void GameWindow::PauseGame()//!!!!!!!!!!!!!!!!!!!
+{
+    setDisabled(true);
 }
 
 void GameWindow::paintEvent(QPaintEvent */*arg*/)
@@ -33,7 +39,8 @@ void GameWindow::EndGame()
     {
         if(userNameDialog->ui->lineEdit->text()!="")
         {
-            WriteResultToDB(userNameDialog->ui->lineEdit->text(), score->text());
+            //qDebug()<<gameController->GetScore()<<" - score";
+            WriteResultToDB(userNameDialog->ui->lineEdit->text(), gameController->GetScore());
         }
     }
     ShowStatisticTable();
@@ -75,10 +82,10 @@ void GameWindow::InitializeRandom()
     qsrand((uint)time.msec());
 }
 
-void GameWindow::WriteResultToDB(QString name, QString scores)
+void GameWindow::WriteResultToDB(QString name, int scores)
 {
     SQLConnectionOpen();
-    QString query="INSERT INTO Statistic(Name, Scores) VALUES('"+name+"', '"+scores+"')";
+    QString query="INSERT INTO Statistic(Name, Scores) VALUES('"+name+"', "+QString::number(scores)+")";
     db.exec(query);
     qDebug()<<db.lastError().text();
 }
@@ -105,18 +112,21 @@ void GameWindow::MakeInterface()
     font.setKerning(true);
     this->setFont(font);
 
-    QString str;
-    QString fileName=":/Style.txt";
-    QFile inputFile(fileName);
-    QTextStream ts(&inputFile);
-    if(!inputFile.open(QFile::ReadOnly | QFile::Text))
-    {
-        return;
-    }
-    str=ts.readAll();
-    inputFile.close();
+//    QString str;
+//    QString fileName=":/Style.txt";
+//    QFile inputFile(fileName);
+//    QTextStream ts(&inputFile);
+//    if(!inputFile.open(QFile::ReadOnly | QFile::Text))
+//    {
+//        return;
+//    }
+//    str=ts.readAll();
+//    inputFile.close();
 
-    this->setStyleSheet(str);
+//    this->setStyleSheet(str);
+
+    SetWindowStyle();
+
     centralWidget = new QWidget(this);
     centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
     verticalLayout = new QVBoxLayout(centralWidget);
@@ -181,6 +191,22 @@ void GameWindow::MakeInterface()
     tableDialog=new TableDialog(this);
 
     inputField->setFocus();
+}
+
+void GameWindow::SetWindowStyle()
+{
+    QString str;
+    QString fileName=":/Style.txt";
+    QFile inputFile(fileName);
+    QTextStream ts(&inputFile);
+    if(!inputFile.open(QFile::ReadOnly | QFile::Text))
+    {
+        return;
+    }
+    str=ts.readAll();
+    inputFile.close();
+
+    this->setStyleSheet(str);
 }
 
 GameWindow::~GameWindow()

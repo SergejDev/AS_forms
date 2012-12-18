@@ -43,6 +43,7 @@ class GameWindow : public QMainWindow
     
 public:
     explicit GameWindow(QWidget *parent = 0);
+
     ~GameWindow();
     
 
@@ -70,10 +71,15 @@ private:
     void paintEvent(QPaintEvent *arg);
 
     void MakeInterface();
+    void SetWindowStyle();
     void SQLConnectionOpen();
-    void WriteResultToDB(QString name, QString scores);
+    void WriteResultToDB(QString name, int scores);
     void ShowStatisticTable();
     void InitializeRandom();
+signals:
+    void MenuButtonPressed();
+public slots:
+    void PauseGame();
 private slots:
     void EndGame();
     void InputFieldTextChanged(QString word);
