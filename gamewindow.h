@@ -42,7 +42,7 @@ class GameWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit GameWindow(QWidget *parent = 0);
+    explicit GameWindow(int languageID, int topicID, QWidget *parent = 0);
 
     ~GameWindow();
     

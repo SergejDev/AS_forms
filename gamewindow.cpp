@@ -2,12 +2,12 @@
 #include "bullet.h"
 
 
-GameWindow::GameWindow(QWidget *parent) :
+GameWindow::GameWindow(int languageID, int topicID, QWidget *parent) :
     QMainWindow(parent)
 {
     InitializeRandom();
     MakeInterface();
-    gameController=new GameController(this->width(),0,this);
+    gameController=new GameController(this->width(),0,languageID,topicID,this);
 
     connect(gameController,SIGNAL(GameAreaUpdate()),this, SLOT(update()));
     connect(this->menuPushButton,SIGNAL(clicked(bool)),this, SIGNAL(MenuButtonPressed(bool)));
@@ -15,7 +15,6 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(this->inputField,SIGNAL(textChanged(QString)),this, SLOT(InputFieldTextChanged(QString)));
     connect(gameController,SIGNAL(ShipDestroyed(int)),this,SLOT(ShipDestroyedSlot(int)));
     connect(gameController,SIGNAL(ShipOwercomeBorder(int)),this,SLOT(EndGame()));
-
 }
 
 void GameWindow::PauseGame()
@@ -38,6 +37,7 @@ void GameWindow::paintEvent(QPaintEvent */*arg*/)
 void GameWindow::EndGame()
 {
 //////////////////////////////////
+    gameController->PauseGame();
     userNameDialog=new UserNameDialog(this);
     userNameDialog->setModal(true);
     if(userNameDialog->exec() == QDialog::Accepted)
@@ -58,7 +58,6 @@ void GameWindow::InputFieldTextChanged(QString word)
 
 void GameWindow::ShipDestroyedSlot(int shipIndex)
 {
-    //currentScore+=scorePointsForDestroyingShip;
     score->setText("Score: "+QString::number(gameController->GetScore()));
     inputField->setText("");
 }
@@ -76,7 +75,7 @@ void GameWindow::ShowStatisticTable()
     model->select();
 
     tableDialog->ui->tableView->setModel(model);
-    //tableDialog->ui->tableView->hideColumn(0);
+    tableDialog->ui->tableView->hideColumn(0);
     tableDialog->setModal(true);
     tableDialog->show();
 }
@@ -97,9 +96,9 @@ void GameWindow::WriteResultToDB(QString name, int scores)
 
 void GameWindow::SQLConnectionOpen()
 {
-    db=QSqlDatabase::addDatabase("QSQLITE","statistic.s3db");
+    db=QSqlDatabase::addDatabase("QSQLITE","Words.s3db");
     db.setHostName("Spirit-PC");
-    db.setDatabaseName("statistic.s3db");
+    db.setDatabaseName("Words.s3db");
     db.setUserName("root");
     db.setPassword("");
     bool ok=db.open();
@@ -113,6 +112,7 @@ void GameWindow::MakeInterface()
         this->setObjectName(QString::fromUtf8("GameWindow"));
     }
     this->resize(1000, 700);
+    this->setWindowTitle("Awesome ships");
     QFont font;
     font.setKerning(true);
     this->setFont(font);

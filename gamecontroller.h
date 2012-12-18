@@ -4,6 +4,7 @@
 #include "ships.h"
 #include "bullets.h"
 #include "gun.h"
+#include "workwithdb.h"
 
 class GameController: public QObject
 {
@@ -17,6 +18,9 @@ private:
     Ships *allShips;
     Bullets *allBullets;
     Gun *gun;
+    WorkWithDB *wordGetter;
+    QStringList words;
+    int currentWordIndex;
     QTimer *animationsTimer;
     QTimer *addShipTimer;
     QString previousWord;
@@ -24,14 +28,15 @@ private:
     int currentScore;
     int scorePointsForDestroyingShip;
 
+    void InitializeLevelSettings();
     QString GetWordForShip();
     bool IsSuccessfulShoot(QString word);
     void NextLevel();
 
-    int RandInt(int low, int high);//!!!!!!
+    //int RandInt(int low, int high);//!!!!!!
 
 public:
-    GameController(int windowWidth,int level, QObject *parrent=0);
+    GameController(int windowWidth, int level, int languageID, int topicID, QObject *parrent=0);
     ~GameController();
     void AddShip();
     void Draw(QPainter *painter);

@@ -12,3 +12,8 @@ TableDialog::~TableDialog()
 {
     delete ui;
 }
+
+void TableDialog::closeEvent(QCloseEvent *)
+{
+    QApplication::quit();
+}

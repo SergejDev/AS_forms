@@ -6,7 +6,6 @@
 Bullets::Bullets(int windowWidth,QObject *parent):QObject(parent)
 {
     this->windowWidth=windowWidth;
-    //gameAreaPadding=100;
     mooveTimerFrequency=25;
     mooveBulletsAnimationsTimer=new QTimer();
     QObject::connect(mooveBulletsAnimationsTimer,SIGNAL(timeout()),this,SLOT(MooveBulletsAnimationsTimerSlot()));

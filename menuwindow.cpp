@@ -9,7 +9,7 @@ MenuWindow::MenuWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
-    setModal(true);
+    //setModal(true);
     SetWindowStyle();
     connect(this->ui->startPushButton,SIGNAL(clicked()),this,SIGNAL(StartButtonPressed()));
     connect(this->ui->settingsPushButton,SIGNAL(clicked()),this,SIGNAL(SettingsButtonPressed()));

@@ -3,6 +3,7 @@
 #include <QObject>
 #include "gamewindow.h"
 #include "menuwindow.h"
+#include "WINDOW.h"
 
 class WindowsController: public QObject
 {
@@ -10,6 +11,7 @@ class WindowsController: public QObject
 private:
     MenuWindow *menuWindow;
     GameWindow *gameWindow;
+    ToolsWindow *settingsWindow;
     bool onApplicationStart;
 
 public:
@@ -22,6 +24,7 @@ private slots:
     void StartGameSlot();
     void SettingsSlot();
     void QuitGameSlot();
+    void ReturnToMenuSlot();
 };
 
 #endif // WINDOWSCONTROLLER_H

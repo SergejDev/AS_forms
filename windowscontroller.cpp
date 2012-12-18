@@ -2,15 +2,16 @@
 
 WindowsController::WindowsController(QObject *parent):QObject(parent)
 {
+    settingsWindow=new ToolsWindow();
+    connect(settingsWindow,SIGNAL(ButtonBackClicked()),this,SLOT(ReturnToMenuSlot()));
+    connect(settingsWindow,SIGNAL(ButtonSaveClicked()),this,SLOT(ReturnToMenuSlot()));
     onApplicationStart=true;
-    //gameWindow=new GameWindow();
-
 }
 
 WindowsController::~WindowsController()
 {
     delete menuWindow;
-    //delete gameWindow;
+    delete settingsWindow;
 }
 
 void WindowsController::ShowMenuWindow(bool isGameWindowActive)
@@ -26,12 +27,19 @@ void WindowsController::ShowMenuWindow(bool isGameWindowActive)
     }
 }
 
+void WindowsController::ReturnToMenuSlot()
+{
+    qDebug()<<"return";
+    menuWindow->show();
+}
+
 void WindowsController::StartGameSlot()
 {
     menuWindow->hide();
     if(onApplicationStart)
     {
-        gameWindow=new GameWindow();
+
+        gameWindow=new GameWindow(settingsWindow->GetLanguageID(),settingsWindow->GetTopicID());
         connect(gameWindow,SIGNAL(MenuButtonPressed(bool)),this,SLOT(ShowMenuWindow(bool)));
         gameWindow->show();
         onApplicationStart=false;
@@ -45,6 +53,9 @@ void WindowsController::StartGameSlot()
 void WindowsController::SettingsSlot()
 {
     qDebug()<<"settings";
+    menuWindow->hide();
+    //settingsWindow=new ToolsWindow();
+    settingsWindow->show();
 }
 
 void WindowsController::QuitGameSlot()

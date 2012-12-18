@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     gamecontroller.cpp \
     gun.cpp \
     windowscontroller.cpp \
-    menuwindow.cpp
+    menuwindow.cpp \
+    workwithdb.cpp \
+    WINDOW.cpp
 
 HEADERS  += gamewindow.h \
     usernamedialog.h \
@@ -35,7 +37,9 @@ HEADERS  += gamewindow.h \
     gamecontroller.h \
     gun.h \
     windowscontroller.h \
-    menuwindow.h
+    menuwindow.h \
+    workwithdb.h \
+    WINDOW.h
 
 FORMS    += \
     usernamedialog.ui \

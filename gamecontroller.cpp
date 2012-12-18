@@ -1,29 +1,29 @@
 #include "gamecontroller.h"
+
 #include <QStringList>
 #include <QDebug>
 
-GameController::GameController(int windowWidth,int level, QObject *parrent):QObject(parrent)
+GameController::GameController(int windowWidth,int level, int languageID, int topicID, QObject *parrent):QObject(parrent)
 {
     currentScore=0;
     scorePointsForDestroyingShip=10;
-
     currentLevel=level;
     scoresPerLevel=30;
 
     allShips=new Ships(windowWidth,parrent);
     allBullets=new Bullets(windowWidth,parrent);
     gun=new Gun(windowWidth);
+    wordGetter=new WorkWithDB("Words.s3db");
+    wordGetter->SetParams(5,topicID,languageID);
+    words=wordGetter->GetWords();
+    currentWordIndex=0;
 
     animationTimerFrequency=25;
     animationsTimer=new QTimer();
     QObject::connect(animationsTimer,SIGNAL(timeout()),this,SLOT(AnimationsTimerSlot()));
 
-    addShipTimerFrequencyOnLevels[0]=6000;
-    addShipTimerFrequencyOnLevels[1]=5000;
-    addShipTimerFrequencyOnLevels[2]=4000;
-    addShipTimerFrequencyOnLevels[3]=3000;
-    addShipTimerFrequencyOnLevels[4]=2000;
-    addShipTimerFrequency=addShipTimerFrequencyOnLevels[currentLevel];
+    InitializeLevelSettings();
+
     addShipTimer=new QTimer();
     QObject::connect(addShipTimer,SIGNAL(timeout()),this,SLOT(AddShipTimerSlot()));
 
@@ -88,6 +88,8 @@ void GameController::ResumeGame()
 void GameController::NextLevel()
 {
     currentLevel+=1;
+    //qDebug()<<currentLevel<<" current level";
+
 }
 
 void GameController::AnimationsTimerSlot()
@@ -117,17 +119,23 @@ void GameController::ShipDestroyedSlot(int shipIndex)
 }
 
 
-int GameController::RandInt(int low, int high)//!!!!!!
-{
-    return qrand() % ((high + 1) - low) + low;
-}
+//int GameController::RandInt(int low, int high)//!!!!!!
+//{
+//    return qrand() % ((high + 1) - low) + low;
+//}
 
 QString GameController::GetWordForShip()//TO DO: Get words from DB (don't forget about RandInt)
 {
-    QStringList words;
-    words<<"bye"<<"hello"<<"word"<<"example"<<"peace";
-    int index=RandInt(0,words.size()-1);
-    return words[index];
+    if(currentWordIndex>=words.size())
+    {
+        words=wordGetter->GetWords();
+        currentWordIndex=0;
+    }
+    qDebug()<<currentWordIndex<<" word index";
+    QString result=words[currentWordIndex];
+    currentWordIndex++;
+
+    return result;
 }
 
 bool GameController::IsSuccessfulShoot(QString word)
@@ -148,4 +156,14 @@ bool GameController::IsSuccessfulShoot(QString word)
 GameController::~GameController()
 {
     delete gun;
+}
+
+void GameController::InitializeLevelSettings()
+{
+    addShipTimerFrequencyOnLevels[0]=6000;
+    addShipTimerFrequencyOnLevels[1]=5000;
+    addShipTimerFrequencyOnLevels[2]=4000;
+    addShipTimerFrequencyOnLevels[3]=3000;
+    addShipTimerFrequencyOnLevels[4]=2000;
+    addShipTimerFrequency=addShipTimerFrequencyOnLevels[currentLevel];
 }
